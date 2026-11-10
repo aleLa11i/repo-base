@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Galeria.Domain/Galeria.Domain.csproj" />
+    <Project Path="src/Galeria.Application/Galeria.Application.csproj" />
+    <Project Path="src/Galeria.Infrastructure/Galeria.Infrastructure.csproj" />
+    <Project Path="src/Galeria.Presentation/Galeria.Presentation.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="Galeria.Launcher.Views.ExposicionPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Galeria.Presentation.ViewModels;assembly=Galeria.Presentation"
+             xmlns:dto="clr-namespace:Galeria.Application.DTOs;assembly=Galeria.Application"
+             x:DataType="vm:ExposicionViewModel"
+             Title="Armado de Exposición">
+
+    <Grid Padding="20" RowSpacing="12" RowDefinitions="Auto,Auto,Auto,*,Auto">
+
+        <HorizontalStackLayout Grid.Row="0" Spacing="10">
+            <Label Text="Pared disponible (cm):" VerticalOptions="Center" />
+            <Entry Text="{Binding CapacidadCm}" Keyboard="Numeric" WidthRequest="120" />
+            <Button Text="Armar propuesta" Command="{Binding ArmarCommand}" />
+            <Button Text="Reservar" Command="{Binding ReservarCommand}" />
+        </HorizontalStackLayout>
+
+        <ActivityIndicator Grid.Row="1" IsRunning="{Binding EstaOcupado}" IsVisible="{Binding EstaOcupado}" />
+
+        <Label Grid.Row="2" Text="{Binding MensajeError}" TextColor="Red" />
+
+        <CollectionView Grid.Row="3" ItemsSource="{Binding Propuesta}">
+            <CollectionView.EmptyView>
+                <Label Text="Sin propuesta. Ingresá la pared disponible y presioná 'Armar propuesta'." />
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="dto:ObraPropuestaDto">
+                    <Grid Padding="8" ColumnDefinitions="*,Auto,Auto" ColumnSpacing="16">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding Titulo}" FontAttributes="Bold" />
+                            <Label Text="{Binding Pintor}" FontSize="12" />
+                        </VerticalStackLayout>
+                        <Label Grid.Column="1" Text="{Binding AnchoCm, StringFormat='{0} cm'}" VerticalOptions="Center" />
+                        <Label Grid.Column="2" Text="{Binding ValorTasacion, StringFormat='{0:C0}'}" VerticalOptions="Center" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <HorizontalStackLayout Grid.Row="4" Spacing="20">
+            <Label Text="{Binding ValorTotal, StringFormat='Valor total: {0:C0}'}" FontAttributes="Bold" />
+            <Label Text="{Binding AnchoTotalCm, StringFormat='Pared usada: {0} cm'}" />
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>
